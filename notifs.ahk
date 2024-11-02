@@ -1,10 +1,4 @@
 ﻿#Requires AutoHotkey v2.0
-#SingleInstance Force
-TraySetIcon 'D:\Mega\IDEs\AutoHotkey v2\#stuff\clipboard.ico'
-
-#Include #lib\GuiButtonIcon.ahk
-#Include #lib\Functions.ahk
-#Include AutoHotkey-clipboard-subs.ahk
 
 ; Initialize Monitor Information
 MonitorCount := MonitorGetCount()
@@ -25,10 +19,8 @@ buttonWidth := 60
 
 VivaldiPath := "C:\Program Files\Vivaldi\Application\Vivaldi.exe"
 YtDlpPath := "D:\Program Files - Portable\youtube-dl\yt-dlp.exe"
-; Clipboard Change Event
-OnClipboardChange(ClipboardChanged)
 
-ClipboardChanged(Type) {
+DisplayNotificationGui(Type) {
     global buttonCount, SavedClipboard, SavedClipboardQuoted
     static GuiUniqueId, NotificationGui
     local NotificationTitle, hBitmap
@@ -50,7 +42,7 @@ ClipboardChanged(Type) {
         return
 
     ; Play Notification Sound
-    SoundPlay("#stuff\AutoHotkey-clipboard-Speech-Misrecognition.wav")
+    SoundPlay("..\#stuff\AutoHotkey-clipboard-Speech-Misrecognition.wav")
 
     SavedClipboard := A_Clipboard
     SavedClipboardQuoted := '"' SavedClipboard '"'

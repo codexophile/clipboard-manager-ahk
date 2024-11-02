@@ -1,6 +1,4 @@
 #Requires AutoHotkey v2.0
-#SingleInstance Force
-#Include #lib\Functions.ahk
 
 Containers := ['test', 'value', 'text']
 NumberOfContainers := 10
@@ -28,8 +26,7 @@ DisableKeys(*) {
     Return
 }
 
-OnClipboardChange(Main)
-Main(Type) {
+PutIntoContainers(Type) {
     If Not Type
         Return
 
@@ -89,10 +86,10 @@ HotKeyFunc(HKey) {
     Key := StrReplace(HKey, OtherModifierKey ' & ', '')
     KeyWait ModifierKey
     KeyWait OtherModifierKey
-    OnClipboardChange(Main, 0)
+    OnClipboardChange(PutIntoContainers, 0)
     A_Clipboard := ''
     A_Clipboard := Containers[Key]
-    OnClipboardChange(Main)
+    OnClipboardChange(PutIntoContainers)
     ClipWait
     WinActivate('ahk_id ' currentWindowHwnd)
     Send '^v'
