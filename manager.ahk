@@ -31,16 +31,6 @@ PutIntoContainers(Type) {
         Return
 
     newValue := A_Clipboard
-    if (InStr(newValue, 'global-document-ready-')) {
-        try {
-            WinActivate StrReplace(newValue, 'global-document-ready-', '')
-        }
-        ; Revert to the previous item in the Containers array
-        if (Containers.Length > 0) {
-            A_Clipboard := Containers[1]
-        }
-        return
-    }
 
     ; Check for and remove any existing duplicate
     index := 1

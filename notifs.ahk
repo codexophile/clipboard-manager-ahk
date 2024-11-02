@@ -32,12 +32,6 @@ DisplayNotificationGui(Type) {
     }
 
     ;* Do nothing
-    if (A_Clipboard = 'global-document-ready') {
-        WinActivate 'ahk_exe vivaldi.exe'
-        return
-    }
-
-    ;* Do nothing
     if (WinActive(' ━ Visual Studio Code') and RegExMatch(A_Clipboard, "\w:\\(.+?\\)+.+?$"))
         return
 

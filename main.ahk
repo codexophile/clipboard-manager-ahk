@@ -8,5 +8,23 @@ TraySetIcon 'D:\Mega\IDEs\AutoHotkey v2\#stuff\clipboard.ico'
 #Include notifs.ahk
 #Include manager.ahk
 
-OnClipboardChange(DisplayNotificationGui, 1)
-OnClipboardChange(PutIntoContainers, 1)
+OnClipboardChange(ClipboardChangeHandler)
+
+ClipboardChangeHandler(DataType) {
+
+    if (InStr(A_Clipboard, 'global-document-ready-')) {
+        try {
+            WinActivate StrReplace(A_Clipboard, 'global-document-ready-', '')
+        }
+        ; Revert to the previous item in the Containers array
+        if (Containers.Length > 0) {
+            OnClipboardChange(ClipboardChangeHandler, 0)
+            A_Clipboard := Containers[1]
+            OnClipboardChange(ClipboardChangeHandler)
+        }
+        return
+    }
+
+    DisplayNotificationGui(DataType)
+    PutIntoContainers(DataType)
+}
