@@ -26,5 +26,7 @@ ClipboardChangeHandler(DataType) {
     }
 
     DisplayNotificationGui(DataType)
-    PutIntoContainers(DataType)
+    if (!InStr(A_Clipboard, 'global-document-ready-')) {
+        PutIntoContainers(DataType)
+    }
 }
