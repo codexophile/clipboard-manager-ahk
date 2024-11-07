@@ -53,7 +53,7 @@ ButtonClicked(Control, null) {
                 Run 'C:\Users\xq151\AppData\Local\Programs\Microsoft VS Code\Code.exe "' JsFullPath '"'
 
         case 'mark-as-watched':
-            Run 'mpv-assistant.ahk ' SavedClipboardQuoted
+            Run '..\mpv-assistant.ahk ' SavedClipboardQuoted
 
         case 'letterboxd':
             GetShowMovieInfo(savedClipboard, &ShowMovieName, ,)

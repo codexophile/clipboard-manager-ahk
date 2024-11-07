@@ -74,7 +74,7 @@ DisplayNotificationGui(Type) {
                 AddButton(NotificationGui, 'Open ↗️', 'open-in-browser')
                 AddButton(NotificationGui, 'List', 'yt-dlp-list', YtDlpPath)
                 AddButton(NotificationGui, '', 'yt-dlp-download', YtDlpPath)
-                AddButton(NotificationGui, 'MPV', 'mpv', '#stuff\mpv.ico')
+                AddButton(NotificationGui, 'MPV', 'mpv', '..\#stuff\mpv.ico')
             }
 
             ; File path
@@ -202,13 +202,13 @@ DisplayNotificationGui(Type) {
         if (GetShowMovieInfo(SavedClipboard)) {
             if ( Not InStr(SavedClipboard, '[w]'))
                 AddButton(NotificationGui, 'W', 'mark-as-watched')
-            AddButton(NotificationGui, "", "Ratingraph", '#stuff\ratingraph.ico')
-            AddButton(NotificationGui, "", "Trakt", '#stuff\trakt.ico')
-            AddButton(NotificationGui, '', 'imdb', '#stuff\imdb.ico')
+            AddButton(NotificationGui, "", "Ratingraph", '..\#stuff\ratingraph.ico')
+            AddButton(NotificationGui, "", "Trakt", '..\#stuff\trakt.ico')
+            AddButton(NotificationGui, '', 'imdb', '..\#stuff\imdb.ico')
             AddButton(NotificationGui, 'Google', 'google-movie')
-            AddButton(NotificationGui, '', 'does-the-dog-die', '#stuff\ddd.ico')
-            AddButton(NotificationGui, '', 'yify-subtitles', '#stuff\yify-subs.ico')
-            AddButton(NotificationGui, '', 'letterboxd', '#stuff\letterboxd.ico')
+            AddButton(NotificationGui, '', 'does-the-dog-die', '..\#stuff\ddd.ico')
+            AddButton(NotificationGui, '', 'yify-subtitles', '..\#stuff\yify-subs.ico')
+            AddButton(NotificationGui, '', 'letterboxd', '..\#stuff\letterboxd.ico')
         }
 
         if (RegExMatch(SavedClipboard, '\(\S+\)(\S+)')) {
