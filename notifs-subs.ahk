@@ -136,6 +136,9 @@ ButtonClicked(Control, null) {
         case 'yt-dlp-download':
             Ytdlp(SavedClipboardQuoted, "max")
 
+        case 'yt-dlp-auto':
+            Ytdlp(SavedClipboardQuoted, "auto")
+
         case 'mpv':
             Run '"D:\Program Files - Portable\mpv\mpv.exe" ' . SavedClipboardQuoted . ' --load-auto-profiles=no'
 
