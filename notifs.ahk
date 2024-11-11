@@ -74,7 +74,7 @@ DisplayNotificationGui(Type) {
                 AddButton(NotificationGui, 'Open ↗️', 'open-in-browser')
                 AddButton(NotificationGui, 'List', 'yt-dlp-list', YtDlpPath)
                 AddButton(NotificationGui, '', 'yt-dlp-download', YtDlpPath)
-                AddButton(NotificationGui, 'Auto', 'yt-dlp-auto', YtDlpPath)
+                AddButton(NotificationGui, 'Quick', 'yt-dlp-quick', YtDlpPath)
                 AddButton(NotificationGui, 'MPV', 'mpv', '..\#stuff\mpv.ico')
             }
 

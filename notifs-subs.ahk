@@ -137,7 +137,7 @@ ButtonClicked(Control, null) {
             Ytdlp(SavedClipboardQuoted, "max")
 
         case 'yt-dlp-auto':
-            Ytdlp(SavedClipboardQuoted, "auto")
+            Ytdlp(SavedClipboardQuoted, "quick")
 
         case 'mpv':
             Run '"D:\Program Files - Portable\mpv\mpv.exe" ' . SavedClipboardQuoted . ' --load-auto-profiles=no'
@@ -211,7 +211,12 @@ FindOp(OpUsername, Extractor) {
 }
 
 RunInPrivateProfile(Url) {
-    BrowserPath := GetAppDataPath() "\Local\Vivaldi\Application\vivaldi.exe --profile-directory=`"Profile 2`" --disable-features=LockProfileCookieDatabase"
+    browserPath := GetVivaldiPath()
+    if (!browserPath) {
+        MsgBox 'Vivaldi not found'
+        return
+    }
+    BrowserCommandLine := browserPath " --profile-directory=`"Profile 1`" --disable-features=LockProfileCookieDatabase"
     Run browserPath ' ' Url
 }
 
