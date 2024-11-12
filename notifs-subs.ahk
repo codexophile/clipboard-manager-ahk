@@ -136,7 +136,7 @@ ButtonClicked(Control, null) {
         case 'yt-dlp-download':
             Ytdlp(SavedClipboardQuoted, "max")
 
-        case 'yt-dlp-auto':
+        case 'yt-dlp-quick':
             Ytdlp(SavedClipboardQuoted, "quick")
 
         case 'mpv':
