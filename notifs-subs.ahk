@@ -166,10 +166,10 @@ ButtonClicked(Control, null) {
             Run "pwsh -noExit D:\Mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
         case '720p':
             MediaFullName := GetMediaFullName()
-            parameters := MediaFullName " -720p"
-            Run "pwsh -noExit D:\Mega\IDEs\powershell\ffmpeg-convert.ps1 " parameters
+            parameters := '"' MediaFullName '"' " -720p"
+            Run "pwsh -noExit D:\Mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
         case 'Stabilize':
-            Run 'pwsh -noExit D:\Mega\IDEs\powershell\ffmpeg-stabilize.ps1 ' SavedClipboardQuoted
+            Run 'pwsh -noExit D:\Mega\IDEs\powershell\ffmpeg\ffmpeg-stabilize.ps1 ' SavedClipboardQuoted
         case 'Avidemux':
             AvidemuxPath := 'C:\Program Files\Avidemux\avidemux.exe'
             VideoFilePath := RegExReplace(SavedClipboardQuoted, '\r|\n', '')
