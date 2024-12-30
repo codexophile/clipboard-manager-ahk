@@ -175,7 +175,7 @@ ButtonClicked(Control, null) {
             VideoFilePath := RegExReplace(SavedClipboardQuoted, '\r|\n', '')
             Run(AvidemuxPath ' ' VideoFilePath)
         case 'tag':
-            Run "D:\Mega\IDEs\Electron\file-tagger\node_modules\electron\dist\electron.exe D:\Mega\IDEs\Electron\file-tagger " SavedClipboardQuoted,
+            Run "D:\Mega\IDEs\Electron\file-tagger\node_modules\electron\dist\electron.exe D:\Mega\IDEs\Electron\file-tagger --files-list " SavedClipboardQuoted,
             "D:\Mega\IDEs\Electron\file-tagger"
         default:
     }
@@ -228,9 +228,9 @@ GetMediaFullName() {
     else
         return GetCurrentMediaFileName()
 }
-Ytdlp(Url, Mode) {
+Ytdlp(Url, Mode, OtherParams := '') {
     url := StrReplace(url, "&", "``&")
     url := StrReplace(url, "(", "``(")
     url := StrReplace(url, ")", "``)")
-    PowerShell('D:\Mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode ' mode ' ' url)
+    PowerShell('D:\Mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode ' mode ' ' url ' ' otherParams)
 }
