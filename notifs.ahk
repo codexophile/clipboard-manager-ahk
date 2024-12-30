@@ -103,7 +103,6 @@ DisplayNotificationGui(Type) {
                     if (FileExist(PromptFileFullName)) {
                         ImagePrompt := FileRead(ImageDir '\' ImageFileName '.txt')
                         A_Clipboard := ImagePrompt
-                        SoundBeep
                     } else
                         MsgBox 'No prompt file'
                 }
