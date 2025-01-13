@@ -16,12 +16,13 @@ ClipboardChangeHandler(DataType) {
   if (InStr(A_Clipboard, 'global-document-ready-')) {
     try {
       WinActivate StrReplace(A_Clipboard, 'global-document-ready-', '')
-    }
-    ; Revert to the previous item in the Containers array
-    if (Containers.Length > 0) {
-      OnClipboardChange(ClipboardChangeHandler, 0)
-      A_Clipboard := Containers[1]
-      OnClipboardChange(ClipboardChangeHandler)
+      ; Revert to the previous item in the Containers array
+      if (Containers.Length > 0) {
+        OnClipboardChange(ClipboardChangeHandler, 0)
+        A_Clipboard := Containers[1]
+        OnClipboardChange(ClipboardChangeHandler)
+      }
+      return
     }
     return
   }
