@@ -33,10 +33,16 @@ ClipboardChangeHandler(DataType) {
     if (!Matches)
       return
 
-    VideoTitle := StrReplace(Trim(Matches[1]), ' ', '-')
+    VideoTitle := Trim(Matches[1])
+    VideoTitle := StrReplace(VideoTitle, " • [Browser:Private-profile]", "")
+    VideoTitle := StrReplace(VideoTitle, ' ', '-')
+    VideoTitle := StrReplace(VideoTitle, "'", "-")
+    VideoTitle := StrReplace(VideoTitle, '"', "-")
     VideoTitle := StrReplace(VideoTitle, '&', 'and')
 
     VideoUrl := Trim(Matches[2])
+    MsgBox(VideoTitle)
+    MsgBox(VideoUrl)
     Ytdlp(VideoUrl, 'Quick', '-GivenName `"' VideoTitle '`"')
     return
   }
