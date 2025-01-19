@@ -1,6 +1,6 @@
-﻿#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.0
 #SingleInstance Force
-TraySetIcon 'D:\Mega\IDEs\AutoHotkey v2\#stuff\clipboard.ico'
+TraySetIcon 'C:\Mega\IDEs\AutoHotkey v2\#stuff\clipboard.ico'
 
 #Include ..\#lib\GuiButtonIcon.ahk
 #Include ..\#lib\Functions.ahk

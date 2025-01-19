@@ -26,9 +26,9 @@ ButtonClicked(Control, null) {
             Includes := '
 (     
 // @require      https://code.jquery.com/jquery-3.7.1.js
-// @require      file://D:\Mega\IDEs\JavaScript\[fun] vanilla.js
-// @require      file://D:\Mega\IDEs\JavaScript\[fun] vanilla - presets.js
-// @require      file://D:\Mega\IDEs\JavaScript\{ScriptName}.user.js
+// @require      file://c:\mega\IDEs\JavaScript\[fun] vanilla.js
+// @require      file://c:\mega\IDEs\JavaScript\[fun] vanilla - presets.js
+// @require      file://c:\mega\IDEs\JavaScript\{ScriptName}.user.js
 )'
 
             NewTemplate := StrReplace(OriginalTemplate, 'New Userscript', ScriptName)
@@ -41,7 +41,7 @@ ButtonClicked(Control, null) {
             A_Clipboard := NewTemplate
             Send '^v'
 
-            JsFullPath := 'D:\Mega\IDEs\JavaScript\' ScriptName '.user.js'
+            JsFullPath := 'c:\mega\IDEs\JavaScript\' ScriptName '.user.js'
             if !FileExist(JsFullPath) {
                 if (MsgBox('Create file?', , 'YesNo Icon?') = 'Yes') {
                     JsFileContent :=
@@ -99,9 +99,9 @@ ButtonClicked(Control, null) {
             savedClipboard := StrReplace(savedClipboard, "”", "`"")
             savedClipboard := StrReplace(savedClipboard, "“", "`"")
             savedClipboard := StrReplace(savedClipboard, "’", "'")
-            FileDelete 'D:\Mega\IDEs\powershell\edge-playback.txt'
-            FileAppend(savedClipboard, 'D:\Mega\IDEs\powershell\edge-playback.txt')
-            Run 'D:\Mega\IDEs\powershell\edge-playback.ps1'
+            FileDelete 'c:\mega\IDEs\powershell\edge-playback.txt'
+            FileAppend(savedClipboard, 'c:\mega\IDEs\powershell\edge-playback.txt')
+            Run 'c:\mega\IDEs\powershell\edge-playback.ps1'
 
         case 'define':
             GoogleQuery := StrReplace(savedClipboard, ' ', '+')
@@ -163,20 +163,20 @@ ButtonClicked(Control, null) {
         case 'Convert':
             MediaFullName := GetMediaFullName()
             parameters := MediaFullName " -ACodec -VCodec"
-            Run "pwsh -noExit D:\Mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
+            Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
         case '720p':
             MediaFullName := GetMediaFullName()
             parameters := '"' MediaFullName '"' " -720p"
-            Run "pwsh -noExit D:\Mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
+            Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
         case 'Stabilize':
-            Run 'pwsh -noExit D:\Mega\IDEs\powershell\ffmpeg\ffmpeg-stabilize.ps1 ' SavedClipboardQuoted
+            Run 'pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-stabilize.ps1 ' SavedClipboardQuoted
         case 'Avidemux':
             AvidemuxPath := 'C:\Program Files\Avidemux\avidemux.exe'
             VideoFilePath := RegExReplace(SavedClipboardQuoted, '\r|\n', '')
             Run(AvidemuxPath ' ' VideoFilePath)
         case 'tag':
-            Run "D:\Mega\IDEs\Electron\file-tagger\node_modules\electron\dist\electron.exe D:\Mega\IDEs\Electron\file-tagger --files-list " SavedClipboardQuoted,
-            "D:\Mega\IDEs\Electron\file-tagger"
+            Run "c:\mega\IDEs\Electron\file-tagger\node_modules\electron\dist\electron.exe c:\mega\IDEs\Electron\file-tagger --files-list " SavedClipboardQuoted,
+            "c:\mega\IDEs\Electron\file-tagger"
         default:
     }
 }
@@ -232,5 +232,5 @@ Ytdlp(Url, Mode, OtherParams := '') {
     url := StrReplace(url, "&", "``&")
     url := StrReplace(url, "(", "``(")
     url := StrReplace(url, ")", "``)")
-    PowerShell('D:\Mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode ' mode ' ' url ' ' otherParams)
+    PowerShell('c:\mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode ' mode ' ' url ' ' otherParams)
 }
