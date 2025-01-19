@@ -1,4 +1,4 @@
-#Requires AutoHotkey v2.0
+﻿#Requires AutoHotkey v2.0
 #SingleInstance Force
 TraySetIcon 'C:\Mega\IDEs\AutoHotkey v2\#stuff\clipboard.ico'
 
@@ -33,16 +33,23 @@ ClipboardChangeHandler(DataType) {
     if (!Matches)
       return
 
+    ; Create a map of characters to replace
+    replacements := Map(
+      " • [Browser:Private-profile]", "",
+      "(", "-",
+      ")", "-",
+      " ", "-",
+      "'", "-",
+      '"', "-",
+      "&", "and"
+    )
+
+    ; Apply all replacements in one go
     VideoTitle := Trim(Matches[1])
-    VideoTitle := StrReplace(VideoTitle, " • [Browser:Private-profile]", "")
-    VideoTitle := StrReplace(VideoTitle, ' ', '-')
-    VideoTitle := StrReplace(VideoTitle, "'", "-")
-    VideoTitle := StrReplace(VideoTitle, '"', "-")
-    VideoTitle := StrReplace(VideoTitle, '&', 'and')
+    for search, replace in replacements
+      VideoTitle := StrReplace(VideoTitle, search, replace)
 
     VideoUrl := Trim(Matches[2])
-    MsgBox(VideoTitle)
-    MsgBox(VideoUrl)
     Ytdlp(VideoUrl, 'Quick', '-GivenName `"' VideoTitle '`"')
     return
   }
