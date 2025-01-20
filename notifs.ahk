@@ -9,7 +9,7 @@ loop MonitorCount {
   })
 }
 
-WhichMonitor := 2
+WhichMonitor := MonitorCount > 1 ? 2 : 1
 MainWidth := 315
 DisplayForMS := 10000
 
@@ -134,7 +134,7 @@ DisplayNotificationGui(Type) {
 
   RightEdgeOffset := 8 * NotificationGui.MarginX
   X := Monitors[WhichMonitor].Right - MainWidth - RightEdgeOffset
-  Y := Monitors[WhichMonitor].Top / 2
+  Y := (Monitors[WhichMonitor].Top - Monitors[WhichMonitor].Bottom) / 2
   NotificationGui.Show("X" X " Y" Y " AutoSize NoActivate Hide")
   buttonCount := 0
   GuiUniqueId := WinExist()
@@ -143,6 +143,8 @@ DisplayNotificationGui(Type) {
   screenHeight := Monitors[WhichMonitor].Top
   NotificationGui.GetPos(, , , &GuiHeight)
   newY := (screenHeight - GuiHeight) / 2
+  if (MonitorCount = 1)
+    newY := -newY
   NotificationGui.Show("X" X " Y" newY " NoActivate")
   WinGetPos(, , , &GuiHeight, "ahk_id " GuiUniqueId)
   ; WinMove(, newY, , , "ahk_id" GuiUniqueId)
