@@ -235,5 +235,5 @@ Ytdlp(Url, Mode, OtherParams := '') {
   url := StrReplace(url, "&", "``&")
   url := StrReplace(url, "(", "``(")
   url := StrReplace(url, ")", "``)")
-  PowerShell('c:\mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode ' mode ' ' url ' ' otherParams)
+  Run "pwsh -noExit -file c:\mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode " mode " " url " " otherParams
 }
