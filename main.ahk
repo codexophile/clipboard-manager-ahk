@@ -29,28 +29,32 @@ ClipboardChangeHandler(DataType) {
 
   ;* initiate ytdlp
   if (InStr(A_Clipboard, 'initiate-ytdlp:')) {
-    RegExMatch(A_Clipboard, '::(.+?)::(.+?)$', &Matches)
-    if (!Matches)
+
+    RegExMatch(A_Clipboard, ':title:(.+?)::', &TitleMatches)
+    RegExMatch(A_Clipboard, ':url:(.+?)::', &UrlMatches)
+
+    if !(TitleMatches OR UrlMatches)
       return
 
     ; Create a map of characters to replace
     replacements := Map(
       " • [Browser:Private-profile]", "",
-      "(", "-",
-      ")", "-",
-      " ", "-",
-      "'", "-",
-      '"', "-",
-      "&", "and"
+      '|', '-'
+      ;   "(", "-",
+      ;   ")", "-",
+      ;   " ", "-",
+      ;   "'", "-",
+      ;   '"', "-",
+      ;   "&", "and"
     )
 
     ; Apply all replacements in one go
-    VideoTitle := Trim(Matches[1])
+    VideoTitle := Trim(TitleMatches[1])
     for search, replace in replacements
       VideoTitle := StrReplace(VideoTitle, search, replace)
 
-    VideoUrl := Trim(Matches[2])
-    Ytdlp(VideoUrl, 'Quick', '-GivenName `"' VideoTitle '`"')
+    VideoUrl := Trim(UrlMatches[1])
+    Ytdlp(VideoUrl, 'Quick', '-GivenName "' videoTitle '"')
     return
   }
 
