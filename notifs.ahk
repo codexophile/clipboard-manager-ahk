@@ -85,7 +85,7 @@ DisplayNotificationGui(Type) {
                 NotificationTitle := "File path"
                 AddButton(NotificationGui, 'Tag', 'tag')
 
-                if (RegExMatch(SavedClipboard, "im)\.(mp4|mkv|webm|video|ts|gif|avi|mov)$")) {
+                if (RegExMatch(SavedClipboard, "im)\.(mp4|mkv|webm|video|ts|gif|avi|mov|part)$")) {
                     ButtonsForVideos()
                 }
 
