@@ -80,7 +80,7 @@ ButtonClicked(Control, null) {
 
     case 'yify-subtitles':
       GetShowMovieInfo(savedClipboard, &ShowMovieName, ,)
-      GoogleIflSiteSearch('yifysubtitles.ch', ShowMovieName)
+      RunInMainProfile('https://yifysubtitles.ch/search?q=' ShowMovieName)
 
     case 'op':
       RegExMatch(SavedClipboard, '.+\\(\S+) ?-.+\((\S+)\)', &OpInfo)
@@ -223,6 +223,7 @@ GetMediaFullName() {
   else
     return GetCurrentMediaFileName()
 }
+
 Ytdlp(Url, Mode, OtherParams := '') {
   Run "pwsh -file c:\mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode " mode " " url " " otherParams
 }
