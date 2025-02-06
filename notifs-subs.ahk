@@ -215,16 +215,6 @@ FindOp(OpUsername, Extractor) {
     RunInPrivateProfile(Url)
 }
 
-RunInPrivateProfile(Url) {
-  browserPath := GetVivaldiPath()
-  if (!browserPath) {
-    MsgBox 'Vivaldi not found'
-    return
-  }
-  BrowserCommandLine := browserPath " --profile-directory=`"Profile 1`" --disable-features=LockProfileCookieDatabase"
-  Run browserPath ' ' Url
-}
-
 GetMediaFullName() {
   if (InStr(savedClipboard, '`n'))
     return savedClipboard
