@@ -23,11 +23,15 @@ ButtonClicked(Control, null) {
       InputBoxResult := InputBox(, , , SuggestedName)
       ScriptName := '[tm] ' InputBoxResult.Value
 
+      Visibility := CustomPrompt('', '', 'public', 'private')
+      if !Visibility
+        return
+
       Includes := '
 (     
-// @require      file://c:\mega\IDEs\JavaScript\[fun] vanilla.js
-// @require      file://c:\mega\IDEs\JavaScript\[fun] vanilla - presets.js
-// @require      file://c:\mega\IDEs\JavaScript\{ScriptName}.user.js
+// @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\[fun] vanilla.js
+// @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\[fun] vanilla - presets.js
+// @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\{ScriptName}.user.js
 )'
 
       NewTemplate := StrReplace(OriginalTemplate, 'New Userscript', ScriptName)
@@ -36,6 +40,7 @@ ButtonClicked(Control, null) {
       NewTemplate := StrReplace(NewTemplate, '// ==UserScript==', '// ==UserScript==`n')
       NewTemplate := StrReplace(NewTemplate, '// ==/UserScript==', includes '`n`n// ==/UserScript==')
       NewTemplate := StrReplace(NewTemplate, '{ScriptName}', ScriptName)
+      NewTemplate := StrReplace(NewTemplate, '{visibility}', Visibility)
 
       A_Clipboard := NewTemplate
       Send '^v'
