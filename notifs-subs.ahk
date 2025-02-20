@@ -45,7 +45,7 @@ ButtonClicked(Control, null) {
       A_Clipboard := NewTemplate
       Send '^v'
 
-      JsFullPath := 'c:\mega\IDEs\JavaScript\' ScriptName '.user.js'
+      JsFullPath := 'c:\mega\IDEs\javascript-userscripts-' Visibility '\' ScriptName '.user.js'
       if !FileExist(JsFullPath) {
         if (MsgBox('Create file?', , 'YesNo Icon?') = 'Yes') {
           JsFileContent :=
