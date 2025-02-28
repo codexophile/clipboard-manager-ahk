@@ -34,7 +34,7 @@ ClipboardChangeHandler(DataType) {
     RegExMatch(A_Clipboard, ':title:(.+?)::', &TitleMatches)
     RegExMatch(A_Clipboard, ':url:(.+?)::', &UrlMatches)
 
-    if !(TitleMatches OR UrlMatches)
+    if !UrlMatches
       return
 
     ; Create a map of characters to replace
@@ -49,10 +49,15 @@ ClipboardChangeHandler(DataType) {
       ;   "&", "and"
     )
 
-    ; Apply all replacements in one go
-    VideoTitle := Trim(TitleMatches[1])
-    for search, replace in replacements
-      VideoTitle := StrReplace(VideoTitle, search, replace)
+    if (TitleMatches) {
+      ; Apply all replacements in one go
+      VideoTitle := Trim(TitleMatches[1])
+      for search, replace in replacements
+        VideoTitle := StrReplace(VideoTitle, search, replace)
+    }
+    else {
+      VideoTitle := ':default:'
+    }
 
     VideoUrl := Trim(UrlMatches[1])
     Ytdlp(VideoUrl, 'Quick', '-GivenName "' videoTitle '"')
