@@ -85,7 +85,7 @@ ButtonClicked(Control, null) {
 
     case 'yify-subtitles':
       GetShowMovieInfo(savedClipboard, &ShowMovieName, ,)
-      RunInMainProfile('https://yifysubtitles.ch/search?q=' ShowMovieName)
+      GoogleIflSiteSearch('yifysubtitles.ch', ShowMovieName)
 
     case 'op':
       RegExMatch(SavedClipboard, '.+\\(\S+) ?-.+\((\S+)\)', &OpInfo)
