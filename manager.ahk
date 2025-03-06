@@ -80,10 +80,10 @@ HotKeyFunc(HKey) {
   Key := StrReplace(HKey, OtherModifierKey ' & ', '')
   KeyWait ModifierKey
   KeyWait OtherModifierKey
-  OnClipboardChange(PutIntoContainers, 0)
+  ; OnClipboardChange(PutIntoContainers, 0)
   A_Clipboard := ''
   A_Clipboard := Containers[Key]
-  OnClipboardChange(PutIntoContainers)
+  ; OnClipboardChange(PutIntoContainers)
   ClipWait
   WinActivate('ahk_id ' currentWindowHwnd)
   Send '^v'
