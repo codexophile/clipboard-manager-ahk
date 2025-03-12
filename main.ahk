@@ -64,6 +64,15 @@ ClipboardChangeHandler(DataType) {
     return
   }
 
+  if (InStr(A_Clipboard, 'mouse-click::')) {
+    RegExMatch(A_Clipboard, 'mouse-move::(.+?),(.+?)::', &Matches)
+    if !Matches
+      return
+    Send('{Alt Up}')
+    Click(Matches[1], Matches[2])
+    return
+  }
+
   DisplayNotificationGui(DataType)
   PutIntoContainers(DataType)
 
