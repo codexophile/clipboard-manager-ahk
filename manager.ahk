@@ -30,9 +30,6 @@ PutIntoContainers(Type) {
   if (Type != 1) {
     return
   }
-  if (InStr(A_Clipboard, 'global-document-ready-')) {
-    return
-  }
 
   newValue := A_Clipboard
 
