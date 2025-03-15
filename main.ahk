@@ -65,11 +65,11 @@ ClipboardChangeHandler(DataType) {
   }
 
   if (InStr(A_Clipboard, 'mouse-click::')) {
-    RegExMatch(A_Clipboard, 'mouse-move::(.+?),(.+?)::', &Matches)
+    RegExMatch(A_Clipboard, 'mouse-click::(.+?),(.+?)::', &Matches)
     if !Matches
       return
-    Send('{Alt Up}')
-    Click(Matches[1], Matches[2])
+    WinActivate('ahk_exe vivaldi.exe')
+    Send('{Click ' Matches[1] ', ' Matches[2] '}')
     return
   }
 
