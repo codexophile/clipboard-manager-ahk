@@ -27,9 +27,9 @@ DisableKeys(*) {
 }
 
 PutIntoContainers(Type) {
-  if (Type != 1) {
-    return
-  }
+  ; if (Type != 1) {
+  ;   return
+  ; }
 
   newValue := A_Clipboard
 

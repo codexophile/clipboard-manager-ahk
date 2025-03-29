@@ -20,7 +20,7 @@ ClipboardChangeHandler(DataType) {
       if (Containers.Length > 0) {
         OnClipboardChange(ClipboardChangeHandler, 0)
         A_Clipboard := Containers[1]
-        ClipWait
+        ClipWait 1
         OnClipboardChange(ClipboardChangeHandler)
       }
       return
@@ -70,6 +70,16 @@ ClipboardChangeHandler(DataType) {
       return
     WinActivate('ahk_exe vivaldi.exe')
     Send('{Click ' Matches[1] ', ' Matches[2] '}')
+    return
+  }
+  if (InStr(A_Clipboard, 'double-click::')) {
+    MsgBox('sdfsdf')
+    RegExMatch(A_Clipboard, 'double-click::(.+?),(.+?)::', &Matches)
+    if !Matches
+      return
+    MsgBox('sdfsdf')
+    WinActivate('ahk_exe vivaldi.exe')
+    Send('{Click ' Matches[1] ', ' Matches[2] ' 2}')
     return
   }
 

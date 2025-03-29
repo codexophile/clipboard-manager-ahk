@@ -29,8 +29,8 @@ ButtonClicked(Control, null) {
 
       Includes := '
 (     
-// @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\[fun] vanilla.js
-// @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\[fun] vanilla - presets.js
+// @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla.js
+// @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla - presets.js
 // @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\{ScriptName}.user.js
 )'
 
