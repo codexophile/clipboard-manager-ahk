@@ -68,7 +68,8 @@ ClipboardChangeHandler(DataType) {
     RegExMatch(A_Clipboard, 'mouse-click::(.+?),(.+?)::', &Matches)
     if !Matches
       return
-    WinActivate('ahk_exe vivaldi.exe')
+    ID := WinGetID('ahk_exe vivaldi.exe')
+    WinActivate('ahk_id ' ID)
     Send('{Click ' Matches[1] ', ' Matches[2] '}')
     return
   }
