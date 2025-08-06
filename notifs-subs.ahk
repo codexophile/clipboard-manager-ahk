@@ -6,7 +6,7 @@ ButtonClicked(Control, null) {
 
   switch Control.Name {
 
-    ;//ANCHOR - Text
+    ;  MARK:  Text
 
     case 'boilerplate':
       WinActivate('<New userscript>')
@@ -127,9 +127,9 @@ ButtonClicked(Control, null) {
       FileAppend(NewFileContent, SelectedFile)
 
     case 'everything':
-      Run '"C:\Program Files\Everything 1.5a\Everything64.exe" -s ' SavedClipboardQuoted
+      Run '"C:\Mega\program-files\Everything\Everything64.exe" -s ' SavedClipboardQuoted
 
-      ;//ANCHOR - Web url
+      ;  MARK: Web url
 
     case 'open-in-browser':
       Run VivaldiPath ' ' SavedClipboardQuoted
@@ -147,9 +147,9 @@ ButtonClicked(Control, null) {
       Ytdlp(SavedClipboardQuoted, "check")
 
     case 'mpv':
-      Run '"D:\Program Files - Portable\mpv\mpv.exe" ' . SavedClipboardQuoted . ' --load-auto-profiles=no'
+      Run '"B:\Program Files - Portable\mpv\mpv.exe" ' . SavedClipboardQuoted . ' --load-auto-profiles=no'
 
-      ;//ANCHOR - File path
+      ;  MARK:  File path
 
     case 'copy-cont':
       FileSize := FileGetSize(savedClipboard, 'K')
@@ -166,7 +166,8 @@ ButtonClicked(Control, null) {
 
     case 'run-open':
       Run Trim(savedClipboard, ' `n`r')
-      ;//ANCHOR - Video files
+
+      ;  MARK: - Video files
     case 'Convert':
       MediaFullName := GetMediaFullName()
       parameters := MediaFullName " -ACodec -VCodec"
@@ -175,6 +176,8 @@ ButtonClicked(Control, null) {
       MediaFullName := GetMediaFullName()
       parameters := '"' MediaFullName '"' " -720p"
       Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
+    case 'Decimate':
+      Run "pwsh -noExit "
     case 'Stabilize':
       Run 'pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-stabilize.ps1 ' SavedClipboardQuoted
     case 'Avidemux':
@@ -195,6 +198,8 @@ FindSource(VideoId, Extractor) {
       Url := 'https://www.pornhub.com/view_video.php?viewkey=' VideoId
     case 'youtube':
       Url := 'https://www.youtube.com/watch?v=' VideoId
+    case 'xhamster':
+      Url := 'https://xhamster.com/videos/' VideoId
   }
   if (Url)
     RunInPrivateProfile(Url)
@@ -214,6 +219,8 @@ FindOp(OpUsername, Extractor) {
       Url := 'https://twitter.com/' OpUsername
     case 'youtube':
       Url := 'https://www.youtube.com/' OpUsername '/videos/'
+    case 'xhamster':
+      Url := 'https://xhamster.com/creators/' OpUsername '/exclusive'
     default:
   }
   if (Url)

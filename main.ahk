@@ -29,10 +29,35 @@ ClipboardChangeHandler(DataType) {
   }
 
   ;* initiate ytdlp
+  if (InStr(A_Clipboard, 'initiate-ytdlp-instant:')) {
+
+    RegExMatch(A_Clipboard, ':url:(.+?)::', &UrlMatches)
+
+    if !UrlMatches
+      return
+
+    ; Create a map of characters to replace
+    replacements := Map(
+      " • [Browser:Private-profile]", "",
+      '|', '-'
+      ;   "(", "-",
+      ;   ")", "-",
+      ;   " ", "-",
+      ;   "'", "-",
+      ;   '"', "-",
+      ;   "&", "and"
+    )
+
+    VideoUrl := Trim(UrlMatches[1])
+    Ytdlp(VideoUrl, 'Instant')
+    return
+  }
   if (InStr(A_Clipboard, 'initiate-ytdlp:')) {
 
     RegExMatch(A_Clipboard, ':title:(.+?)::', &TitleMatches)
     RegExMatch(A_Clipboard, ':url:(.+?)::', &UrlMatches)
+    RegExMatch(A_Clipboard, ':dest:(.+?)::', &DestinationMatches)
+    RegExMatch(A_Clipboard, ':mode:(.+?)::', &ModeMatches)
 
     if !UrlMatches
       return
@@ -59,28 +84,37 @@ ClipboardChangeHandler(DataType) {
       VideoTitle := ':default:'
     }
 
+    if (DestinationMatches) {
+      Destination := DestinationMatches[1]
+    }
+    else {
+      Destination := ':default:'
+    }
+
+    if (ModeMatches) {
+      Mode := ModeMatches[1]
+    }
+    else {
+      Mode := 'Quick'
+    }
+
     VideoUrl := Trim(UrlMatches[1])
-    Ytdlp(VideoUrl, 'Quick', '-GivenName "' videoTitle '"')
+    Ytdlp(VideoUrl, Mode, '-GivenName "' videoTitle '" -Destination "' Destination '"')
     return
   }
 
-  if (InStr(A_Clipboard, 'mouse-click::')) {
-    RegExMatch(A_Clipboard, 'mouse-click::(.+?),(.+?)::', &Matches)
-    if !Matches
-      return
-    ID := WinGetID('ahk_exe vivaldi.exe')
-    WinActivate('ahk_id ' ID)
-    Send('{Click ' Matches[1] ', ' Matches[2] '}')
-    return
-  }
-  if (InStr(A_Clipboard, 'double-click::')) {
-    MsgBox('sdfsdf')
-    RegExMatch(A_Clipboard, 'double-click::(.+?),(.+?)::', &Matches)
-    if !Matches
-      return
-    MsgBox('sdfsdf')
-    WinActivate('ahk_exe vivaldi.exe')
-    Send('{Click ' Matches[1] ', ' Matches[2] ' 2}')
+  ;* Code execution
+  if (InStr(A_Clipboard, '::code-executor::')) {
+    RegExMatch(A_Clipboard, '::code-executor::((.|\n)+?)::', &CodeMatches)
+    if (CodeMatches) {
+      Code := CodeMatches[1]
+      ; Execute the code in the current context
+      try {
+        RunDynamicAHK(Code)
+      } catch (error) {
+        MsgBox("Error: " error)
+      }
+    }
     return
   }
 
