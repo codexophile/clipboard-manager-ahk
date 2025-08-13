@@ -170,7 +170,7 @@ ButtonClicked(Control, null) {
       ;  MARK: - Video files
     case 'Convert':
       MediaFullName := GetMediaFullName()
-      parameters := MediaFullName " -ACodec -VCodec"
+      parameters := '"' MediaFullName '"' " -ACodec -VCodec"
       Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
     case '720p':
       MediaFullName := GetMediaFullName()
