@@ -177,7 +177,7 @@ ButtonClicked(Control, null) {
       parameters := '"' MediaFullName '"' " -720p"
       Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
     case 'Decimate':
-      Run "pwsh -noExit "
+      Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-decimate.ps1 " SavedClipboardQuoted
     case 'Stabilize':
       Run 'pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-stabilize.ps1 ' SavedClipboardQuoted
     case 'Avidemux':
