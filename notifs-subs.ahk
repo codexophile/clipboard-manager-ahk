@@ -192,7 +192,6 @@ ButtonClicked(Control, null) {
 }
 
 FindSource(VideoId, Extractor) {
-  MsgBox(Extractor)
   switch Extractor, 'Off' {
     case 'pornhub':
       Url := 'https://www.pornhub.com/view_video.php?viewkey=' VideoId
