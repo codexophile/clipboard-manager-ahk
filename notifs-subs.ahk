@@ -199,6 +199,8 @@ FindSource(VideoId, Extractor) {
       Url := 'https://www.youtube.com/watch?v=' VideoId
     case 'xhamster':
       Url := 'https://xhamster.com/videos/' VideoId
+    case 'instagram':
+      Url := 'https://www.instagram.com/p/' VideoId
   }
   if (Url)
     RunInPrivateProfile(Url)
