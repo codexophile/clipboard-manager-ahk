@@ -134,18 +134,25 @@ DisplayNotificationGui(Type) {
   NotificationGui.Add('Text', , 'Character count: ' CharacterCount ' Line count: ' LineCount)
 
   RightEdgeOffset := 8 * NotificationGui.MarginX
-  X := Monitors[WhichMonitor].Right - MainWidth - RightEdgeOffset
-  Y := (Monitors[WhichMonitor].Top - Monitors[WhichMonitor].Bottom) / 2
-  NotificationGui.Show("X" X " Y" Y " AutoSize NoActivate Hide")
+  ManualOffset := 50
+  ; Show hidden first so AutoSize can calculate dimensions
+  NotificationGui.Show("AutoSize Hide")
+  monitor := Monitors[WhichMonitor]
+  ; Get actual gui size (may differ from MainWidth due to margins / scrollbars)
+  NotificationGui.GetPos(, , &GuiWidth, &GuiHeight)
+  X := monitor.Right - GuiWidth - RightEdgeOffset - ManualOffset
+  ; Clamp horizontally so it never goes off the left edge
+  MinX := monitor.Left + RightEdgeOffset
+  if (X < MinX)
+    X := MinX
   buttonCount := 0
   GuiUniqueId := WinExist()
 
-  ; making sure the gui is actually centered vertically
-  screenHeight := Monitors[WhichMonitor].Top
-  NotificationGui.GetPos(, , , &GuiHeight)
-  newY := (screenHeight - GuiHeight) / 2
-  if (MonitorCount = 1)
-    newY := -newY
+  ; Correct vertical centering using monitor bounds
+  monitorHeight := monitor.Bottom - monitor.Top
+  newY := monitor.Top + (monitorHeight - GuiHeight) / 2
+  ; Clamp in case of weird DPI math producing fractions
+  newY := Round(newY)
   NotificationGui.Show("X" X " Y" newY " NoActivate")
   WinGetPos(, , , &GuiHeight, "ahk_id " GuiUniqueId)
   ; WinMove(, newY, , , "ahk_id" GuiUniqueId)
@@ -186,7 +193,7 @@ DisplayNotificationGui(Type) {
 
     buttonOptions := isNewRow
       ? Format("xm y+m w{1} v{2}", buttonWidth, ControlName)
-        : Format("x+m wp hp v{1}", ControlName)
+      : Format("x+m wp hp v{1}", ControlName)
 
     newButton := guiObj.Add("Button", buttonOptions, Text)
     newButton.OnEvent("Click", ButtonClicked)
