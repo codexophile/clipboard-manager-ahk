@@ -222,6 +222,8 @@ FindOp(OpUsername, Extractor) {
       Url := 'https://www.youtube.com/' OpUsername '/videos/'
     case 'xhamster':
       Url := 'https://xhamster.com/creators/' OpUsername '/exclusive'
+    case 'tiktok':
+      Url := 'https://www.tiktok.com/@' OpUsername
     default:
   }
   if (Url)

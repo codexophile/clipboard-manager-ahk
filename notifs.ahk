@@ -66,7 +66,7 @@ DisplayNotificationGui(Type) {
       AddButton(NotificationGui, 'Define', 'define')
       AddButton(NotificationGui, 'Google', 'google')
       AddButton(NotificationGui, 'Save as ...', 'save-as')
-      AddButton(NotificationGui, '', 'everything', 'C:\Program Files\Everything 1.5a\Everything64.exe')
+      AddButton(NotificationGui, '', 'everything', 'C:\mega\program-files\Everything\Everything64.exe')
 
       ; url
       if (RegExMatch(SavedClipboard, "^https?:\/\/")) {
