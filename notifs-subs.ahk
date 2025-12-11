@@ -192,6 +192,7 @@ ButtonClicked(Control, null) {
 }
 
 FindSource(VideoId, Extractor) {
+  Url := ''
   switch Extractor, 'Off' {
     case 'pornhub':
       Url := 'https://www.pornhub.com/view_video.php?viewkey=' VideoId
@@ -208,6 +209,7 @@ FindSource(VideoId, Extractor) {
 }
 
 FindOp(OpUsername, Extractor) {
+  Url := ''
   switch Extractor, 'off' {
     case 'facebook':
       Url := 'https://www.facebook.com/' OpUsername
