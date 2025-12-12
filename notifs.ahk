@@ -89,6 +89,11 @@ DisplayNotificationGui(Type) {
           ButtonsForVideos()
         }
 
+        if (RegExMatch(SavedClipboard, '(?<=\))[^.\s]+')) {
+          AddButton(NotificationGui, 'Op', 'op')
+          AddButton(NotificationGui, 'Source', 'source')
+        }
+
         CopiedFilesArray := StrSplit(Trim(SavedClipboard, '`r`n'), "`r`n")
         if (CopiedFilesArray.Length = 1) {
           ; copy , tag
@@ -219,11 +224,6 @@ DisplayNotificationGui(Type) {
       AddButton(NotificationGui, '', 'does-the-dog-die', '..\#stuff\ddd.ico')
       AddButton(NotificationGui, '', 'yify-subtitles', '..\#stuff\yify-subs.ico')
       AddButton(NotificationGui, '', 'letterboxd', '..\#stuff\letterboxd.ico')
-    }
-
-    if (RegExMatch(SavedClipboard, '\(\S+\)(\S+)')) {
-      AddButton(NotificationGui, 'Op', 'op')
-      AddButton(NotificationGui, 'Source', 'source')
     }
 
     AddButton(NotificationGui, "Convert", 'Convert')

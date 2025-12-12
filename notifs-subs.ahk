@@ -94,7 +94,7 @@ ButtonClicked(Control, null) {
       FindOp(OpUsername, Extractor)
 
     case 'source':
-      RegExMatch(savedClipboard, '\((\S+)\)(\S+)', &VideoInfo)
+      RegExMatch(savedClipboard, '\(([^)]+)\)([^ .\s]+)', &VideoInfo)
       Extractor := VideoInfo.1
       VideoId := VideoInfo.2
       FindSource(VideoId, Extractor)
