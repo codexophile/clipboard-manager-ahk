@@ -18,7 +18,7 @@ buttonWidth := 60
 ; buttonHeight := 25
 
 VivaldiPath := "C:\Program Files\Vivaldi\Application\Vivaldi.exe"
-YtDlpPath := "B:\Program Files - Portable\youtube-dl\yt-dlp.exe"
+YtDlpPath := "C:\mega\program-files\yt-dlp\yt-dlp.exe"
 
 DisplayNotificationGui(Type) {
   global buttonCount, SavedClipboard, SavedClipboardQuoted
