@@ -1,5 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 
+OpIdRegex := '.+\\(\S+) ?-.+\((\S+)\)'
+
 ButtonClicked(Control, null) {
 
   global savedClipboard, SavedClipboardQuoted
@@ -88,7 +90,7 @@ ButtonClicked(Control, null) {
       GoogleIflSiteSearch('yifysubtitles.ch', ShowMovieName)
 
     case 'op':
-      RegExMatch(SavedClipboard, '.+\\(\S+) ?-.+\((\S+)\)', &OpInfo)
+      RegExMatch(SavedClipboard, OpIdRegex, &OpInfo)
       OpUsername := OpInfo.1
       Extractor := OpInfo.2
       FindOp(OpUsername, Extractor)
@@ -98,6 +100,11 @@ ButtonClicked(Control, null) {
       Extractor := VideoInfo.1
       VideoId := VideoInfo.2
       FindSource(VideoId, Extractor)
+
+    case 'search-op':
+      RegExMatch(SavedClipboard, OpIdRegex, &OpInfo)
+      OpId := OpInfo.1
+      Run "Es:" OpId
 
     case 'speak':
       savedClipboard := StrReplace(savedClipboard, "”", "`"")

@@ -19,6 +19,7 @@ buttonWidth := 60
 
 VivaldiPath := "C:\Program Files\Vivaldi\Application\Vivaldi.exe"
 YtDlpPath := "C:\mega\program-files\yt-dlp\yt-dlp.exe"
+EverythingPath := "C:\Mega\program-files\Everything\Everything64.exe"
 
 DisplayNotificationGui(Type) {
   global buttonCount, SavedClipboard, SavedClipboardQuoted
@@ -66,7 +67,7 @@ DisplayNotificationGui(Type) {
       AddButton(NotificationGui, 'Define', 'define')
       AddButton(NotificationGui, 'Google', 'google')
       AddButton(NotificationGui, 'Save as ...', 'save-as')
-      AddButton(NotificationGui, '', 'everything', 'C:\mega\program-files\Everything\Everything64.exe')
+      AddButton(NotificationGui, '', 'everything', EverythingPath)
 
       ; url
       if (RegExMatch(SavedClipboard, "^https?:\/\/")) {
@@ -101,6 +102,7 @@ DisplayNotificationGui(Type) {
           NotificationGui.Add('Text', 'x0 w' MainWidth ' 0x10')
           AddButton(NotificationGui, 'Op', 'op')
           AddButton(NotificationGui, 'Source', 'source')
+          AddButton(NotificationGui, 'Op', 'search-op', EverythingPath)
         }
         ;* automatically copy image generation prompt
         SplitPath(SavedClipboard, , &ImageDir, , &ImageFileName)
