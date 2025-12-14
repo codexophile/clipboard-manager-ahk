@@ -89,11 +89,6 @@ DisplayNotificationGui(Type) {
           ButtonsForVideos()
         }
 
-        if (RegExMatch(SavedClipboard, '(?<=\))[^.\s]+')) {
-          AddButton(NotificationGui, 'Op', 'op')
-          AddButton(NotificationGui, 'Source', 'source')
-        }
-
         CopiedFilesArray := StrSplit(Trim(SavedClipboard, '`r`n'), "`r`n")
         if (CopiedFilesArray.Length = 1) {
           ; copy , tag
@@ -102,6 +97,11 @@ DisplayNotificationGui(Type) {
           AddButton(NotificationGui, 'Open parent', 'open-parent')
         }
 
+        if (RegExMatch(SavedClipboard, '(?<=\))[^.\s]+')) {
+          NotificationGui.Add('Text', 'x0 w' MainWidth ' 0x10')
+          AddButton(NotificationGui, 'Op', 'op')
+          AddButton(NotificationGui, 'Source', 'source')
+        }
         ;* automatically copy image generation prompt
         SplitPath(SavedClipboard, , &ImageDir, , &ImageFileName)
         PromptFileFullName := ImageDir '\' ImageFileName '.txt'
