@@ -29,6 +29,9 @@ ButtonClicked(Control, null) {
       if !Visibility
         return
 
+      ; adding @noframes after @icon
+      NewTemplate := RegExReplace(OriginalTemplate, "i)(\/\/ @icon.*)", "$1`r`n// @noframes")
+
       Includes := '
 (     
 // @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla.js
@@ -154,7 +157,7 @@ ButtonClicked(Control, null) {
       Ytdlp(SavedClipboardQuoted, "check")
 
     case 'mpv':
-      Run '"B:\Program Files - Portable\mpv\mpv.exe" ' . SavedClipboardQuoted . ' --load-auto-profiles=no'
+      Run '"C:\Users\xq151\AppData\Local\UniGetUI\Chocolatey\lib\mpvio.install\tools\mpv.exe" ' . SavedClipboardQuoted . ' --load-auto-profiles=no'
 
       ;  MARK:  File path
 
