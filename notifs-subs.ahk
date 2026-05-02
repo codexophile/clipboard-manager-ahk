@@ -33,11 +33,11 @@ ButtonClicked(Control, null) {
       NewTemplate := RegExReplace(OriginalTemplate, "i)(\/\/ @icon.*)", "$1`r`n// @noframes")
 
       Includes := '
-(     
-// @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla.js
-// @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla - presets.js
-// @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\{ScriptName}.user.js
-)'
+      (     
+        // @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla.js
+        // @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla - presets.js
+        // @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\{ScriptName}.user.js
+      )'
 
       NewTemplate := StrReplace(OriginalTemplate, 'New Userscript', ScriptName)
       NewTemplate := StrReplace(NewTemplate, '// @author       You', '// @author       Codexophile')
