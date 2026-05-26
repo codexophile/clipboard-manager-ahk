@@ -157,7 +157,8 @@ ButtonClicked(Control, null) {
       Ytdlp(SavedClipboardQuoted, "check")
 
     case 'mpv':
-      Run '"C:\Users\xq151\AppData\Local\UniGetUI\Chocolatey\lib\mpvio.install\tools\mpv.exe" ' . SavedClipboardQuoted . ' --load-auto-profiles=no'
+      Run '"C:\Users\xq151\AppData\Local\UniGetUI\Chocolatey\lib\mpvio.install\tools\mpv.exe" ' . SavedClipboardQuoted .
+      ' --load-auto-profiles=no'
 
       ;  MARK:  File path
 
@@ -212,6 +213,8 @@ FindSource(VideoId, Extractor) {
       Url := 'https://xhamster.com/videos/' VideoId
     case 'instagram':
       Url := 'https://www.instagram.com/p/' VideoId
+    case 'facebook':
+      Url := 'https://www.facebook.com/permalink.php?' VideoId
   }
   if (Url)
     RunInPrivateProfile(Url)
