@@ -30,7 +30,7 @@ ButtonClicked(Control, null) {
         return
 
       ; adding @noframes after @icon
-      NewTemplate := RegExReplace(OriginalTemplate, "i)(\/\/ @icon.*)", "$1`r`n// @noframes")
+      NewTemplate := RegExReplace(OriginalTemplate, "i)(\\/\/ @icon.*)", "$1`r`n// @noframes")
 
       Includes := '
       (     
@@ -39,13 +39,24 @@ ButtonClicked(Control, null) {
         // @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\{ScriptName}.user.js
       )'
 
-      NewTemplate := StrReplace(OriginalTemplate, 'New Userscript', ScriptName)
+      ; Apply replacements on NewTemplate (not OriginalTemplate) so earlier @noframes insertion persists
+      NewTemplate := StrReplace(NewTemplate, 'New Userscript', ScriptName)
       NewTemplate := StrReplace(NewTemplate, '// @author       You', '// @author       Codexophile')
       NewTemplate := StrReplace(NewTemplate, '// @grant        none', '`n// @grant        none`n')
       NewTemplate := StrReplace(NewTemplate, '// ==UserScript==', '// ==UserScript==`n')
       NewTemplate := StrReplace(NewTemplate, '// ==/UserScript==', includes '`n`n// ==/UserScript==')
       NewTemplate := StrReplace(NewTemplate, '{ScriptName}', ScriptName)
       NewTemplate := StrReplace(NewTemplate, '{visibility}', Visibility)
+
+      ; Ensure @run-at document-start is present (insert after @grant if missing)
+      if !RegExMatch(NewTemplate, "i)//\s*@run-at") {
+        NewTemplate := RegExReplace(NewTemplate, "i)(\/\/ @grant\s+.*)", "$1`r`n// @run-at       document-start")
+      }
+
+      ; Ensure @noframes is present (insert after @icon if missing)
+      if !RegExMatch(NewTemplate, "i)//\s*@noframes") {
+        NewTemplate := RegExReplace(NewTemplate, "i)(\/\/ @icon.*)", "$1`r`n// @noframes")
+      }
 
       A_Clipboard := NewTemplate
       Send '^v'
