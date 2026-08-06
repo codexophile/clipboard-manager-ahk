@@ -116,7 +116,7 @@ DisplayNotificationGui(Type) {
         }
       }
 
-      if (ActiveWindowTitle = '<New userscript> - Vivaldi') {
+      if (InStr(ActiveWindowTitle, '<New userscript>')) {
         AddButton(NotificationGui, 'Boilerplate', 'boilerplate')
       }
 
@@ -200,7 +200,7 @@ DisplayNotificationGui(Type) {
 
     buttonOptions := isNewRow
       ? Format("xm y+m w{1} v{2}", buttonWidth, ControlName)
-      : Format("x+m wp hp v{1}", ControlName)
+        : Format("x+m wp hp v{1}", ControlName)
 
     newButton := guiObj.Add("Button", buttonOptions, Text)
     newButton.OnEvent("Click", ButtonClicked)
