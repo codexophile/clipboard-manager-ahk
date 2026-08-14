@@ -14,6 +14,7 @@ TraySetIcon 'C:\Mega\IDEs\AutoHotkey v2\#stuff\clipboard.ico'
 TRIGGER_BROWSER_ACTIVATION := 'global-document-ready-'
 TRIGGER_YTDLP_INSTANT := 'initiate-ytdlp-instant:'
 TRIGGER_YTDLP_FULL := 'initiate-ytdlp:'
+TRIGGER_GALLERYDL := 'initiate-gallerydl:'
 TRIGGER_CODE_EXECUTOR := '::code-executor::'
 
 ; ========================================
@@ -72,7 +73,7 @@ HandleYtdlpInstant(clipboardContent) {
   Ytdlp(matches['url'], 'Instant')
 }
 
-HandleYtdlpFull(clipboardContent) {
+HandleDownload(clipboardContent) {
   patterns := Map(
     'title', ':title:(.+?)::',
     'url', ':url:(.+?)::',
@@ -105,7 +106,11 @@ HandleYtdlpFull(clipboardContent) {
   if (matches.Has('profile'))
     params .= ' -BrowserProfile "' matches['profile'] '"'
 
-  Ytdlp(videoUrl, mode, params)
+  if (InStr(clipboardContent, TRIGGER_YTDLP_FULL))
+    Ytdlp(videoUrl, mode, params)
+  else if (InStr(clipboardContent, TRIGGER_GALLERYDL)) {
+    InvokeGallerydl(videoUrl, destination)
+  }
 }
 
 HandleCodeExecutor(clipboardContent) {
@@ -132,8 +137,11 @@ DispatchClipboardHandler(clipboardContent) {
     return true
   }
 
-  if (InStr(clipboardContent, TRIGGER_YTDLP_FULL)) {
-    HandleYtdlpFull(clipboardContent)
+  if (
+    InStr(clipboardContent, TRIGGER_YTDLP_FULL) OR
+    InStr(clipboardContent, TRIGGER_GALLERYDL)
+  ) {
+    HandleDownload(clipboardContent)
     return true
   }
 
