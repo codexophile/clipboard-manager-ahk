@@ -109,7 +109,7 @@ HandleDownload(clipboardContent) {
   if (InStr(clipboardContent, TRIGGER_YTDLP_FULL))
     Ytdlp(videoUrl, mode, params)
   else if (InStr(clipboardContent, TRIGGER_GALLERYDL)) {
-    InvokeGallerydl(videoUrl, destination)
+    InvokeGallerydl(videoUrl, destination, mode)
   }
 }
 
