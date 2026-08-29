@@ -93,6 +93,8 @@ DisplayNotificationGui(Type) {
         CopiedFilesArray := StrSplit(Trim(SavedClipboard, '`r`n'), "`r`n")
         if (CopiedFilesArray.Length = 1) {
           ; copy , tag
+          AddButton(NotificationGui, 'Copy file', 'copy-file')
+          AddButton(NotificationGui, 'Move file', 'move-file')
           AddButton(NotificationGui, 'Copy Content', 'copy-cont')
           AddButton(NotificationGui, 'Run/Open', 'run-open')
           AddButton(NotificationGui, 'Open parent', 'open-parent')

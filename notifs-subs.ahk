@@ -173,6 +173,20 @@ ButtonClicked(Control, null) {
 
       ;  MARK:  File path
 
+    case 'copy-file':
+      SplitPath(savedClipboard, &OutName)
+      SelectedFilePath := FileSelect('S16', OutName)
+      if (SelectedFilePath) {
+        FileCopy(savedClipboard, SelectedFilePath)
+      }
+
+    case 'move-file':
+      SplitPath(savedClipboard, &OutName)
+      SelectedFilePath := FileSelect('S16', OutName)
+      if (SelectedFilePath) {
+        FileMove(savedClipboard, SelectedFilePath)
+      }
+
     case 'copy-cont':
       FileSize := FileGetSize(savedClipboard, 'K')
       if (FileSize > 512) {
@@ -266,9 +280,26 @@ GetMediaFullName() {
 }
 
 Ytdlp(Url, Mode, OtherParams := '') {
-  Run "pwsh -file c:\mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode " mode " " url " " otherParams
+  ; Run "pwsh -file c:\mega\IDEs\powershell\yt-dlp\yt-dlp.ps1 -mode " mode " " url " " otherParams
+  RunWhat := Join(" ", , [
+    "pwsh",
+    "-file", "c:\mega\IDEs\powershell\yt-dlp\yt-dlp.ps1",
+    "-mode", mode,
+    url,
+    otherParams
+  ])
+  Run(RunWhat)
 }
 
 InvokeGallerydl(Url, Destination, Mode) {
-  Run "pwsh -noexit -file C:\mega\IDEs\powershell\gallery-dl\gallery-dl-main.ps1 -url " url " -destination " destination " -mode " Mode
+  ; Run "pwsh -noexit -file C:\mega\IDEs\powershell\gallery-dl\gallery-dl-main.ps1 -url " url " -destination " destination " -mode " Mode
+  RunWhat := Join(" ", , [
+    "pwsh",
+    "-noexit",
+    "-file", "C:\mega\IDEs\powershell\gallery-dl\gallery-dl-main.ps1",
+    "-url", url,
+    "-destination", destination,
+    "-mode", Mode
+  ])
+  Run(RunWhat)
 }
