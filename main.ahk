@@ -80,7 +80,8 @@ HandleDownload(clipboardContent) {
     'dest', ':dest:(.+?)::',
     'mode', ':mode:(.+?)::',
     'browser', ':browser:(.+?)::',
-    'profile', ':profile:(.+?)::'
+    'profile', ':profile:(.+?)::',
+    'autoRetryInfoJson', ':autoRetryInfoJson:(.+?)::'
   )
 
   matches := ExtractRegexMatches(clipboardContent, patterns)
@@ -105,6 +106,9 @@ HandleDownload(clipboardContent) {
 
   if (matches.Has('profile'))
     params .= ' -BrowserProfile "' matches['profile'] '"'
+
+  if (matches.Has('autoRetryInfoJson'))
+    params .= ' -AutoRetryInfoJson "'
 
   if (InStr(clipboardContent, TRIGGER_YTDLP_FULL))
     Ytdlp(videoUrl, mode, params)

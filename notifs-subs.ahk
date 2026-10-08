@@ -20,8 +20,10 @@ ButtonClicked(Control, null) {
       }
       OriginalTemplate := A_Clipboard
       RegEx := 'm)\/\/ @match\s+https?:\/\/(.+?\.)?(.+?)\..+?\/'
-      RegExMatch(OriginalTemplate, RegEx, &SuggestedNameMatches)
-      SuggestedName := SuggestedNameMatches[2]
+      if (RegExMatch(OriginalTemplate, RegEx, &SuggestedNameMatches))
+        SuggestedName := SuggestedNameMatches[2]
+      else
+        SuggestedName := ''
       InputBoxResult := InputBox(, , , SuggestedName)
       ScriptName := '[tm] ' InputBoxResult.Value
 
@@ -221,8 +223,7 @@ ButtonClicked(Control, null) {
       VideoFilePath := RegExReplace(SavedClipboardQuoted, '\r|\n', '')
       Run(AvidemuxPath ' ' VideoFilePath)
     case 'tag':
-      Run "c:\mega\IDEs\Electron\file-tagger\node_modules\electron\dist\electron.exe c:\mega\IDEs\Electron\file-tagger --files-list " SavedClipboardQuoted,
-      "c:\mega\IDEs\Electron\file-tagger"
+      RunDirElectron('c:\mega\IDEs\Electron\file-tagger', ["--files-list", SavedClipboardQuoted])
     default:
   }
 }
