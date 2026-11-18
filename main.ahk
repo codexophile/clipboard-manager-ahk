@@ -63,60 +63,6 @@ HandleBrowserActivation(clipboardContent) {
   }
 }
 
-HandleYtdlpInstant(clipboardContent) {
-  patterns := Map('url', ':url:(.+?)::')
-  matches := ExtractRegexMatches(clipboardContent, patterns)
-
-  if !matches.Has('url')
-    return
-
-  Ytdlp(matches['url'], 'Instant')
-}
-
-HandleDownload(clipboardContent) {
-  patterns := Map(
-    'title', ':title:(.+?)::',
-    'url', ':url:(.+?)::',
-    'dest', ':dest:(.+?)::',
-    'mode', ':mode:(.+?)::',
-    'browser', ':browser:(.+?)::',
-    'profile', ':profile:(.+?)::',
-    'autoRetryInfoJson', ':autoRetryInfoJson:(.+?)::'
-  )
-
-  matches := ExtractRegexMatches(clipboardContent, patterns)
-
-  if !matches.Has('url')
-    return
-
-  videoTitle := matches.Has('title') ? matches['title'] : ':default:'
-  videoTitle := ApplyReplacements(videoTitle, GetVideoTitleReplacements())
-
-  destination := matches.Has('dest') ? matches['dest'] : ':default:'
-  mode := matches.Has('mode') ? matches['mode'] : 'Quick'
-  videoUrl := matches['url']
-
-  params := '-Destination "' destination '"'
-
-  if (matches.Has('title'))
-    params .= ' -GivenName "' videoTitle '"'
-
-  if (matches.Has('browser'))
-    params .= ' -Browser "' matches['browser'] '"'
-
-  if (matches.Has('profile'))
-    params .= ' -BrowserProfile "' matches['profile'] '"'
-
-  if (matches.Has('autoRetryInfoJson'))
-    params .= ' -AutoRetryInfoJson "'
-
-  if (InStr(clipboardContent, TRIGGER_YTDLP_FULL))
-    Ytdlp(videoUrl, mode, params)
-  else if (InStr(clipboardContent, TRIGGER_GALLERYDL)) {
-    InvokeGallerydl(videoUrl, destination, mode)
-  }
-}
-
 HandleCodeExecutor(clipboardContent) {
   RegExMatch(clipboardContent, '::code-executor::((.|\n)+?)::', &CodeMatches)
 
@@ -133,19 +79,6 @@ HandleCodeExecutor(clipboardContent) {
 DispatchClipboardHandler(clipboardContent) {
   if (InStr(clipboardContent, TRIGGER_BROWSER_ACTIVATION)) {
     HandleBrowserActivation(clipboardContent)
-    return true
-  }
-
-  if (InStr(clipboardContent, TRIGGER_YTDLP_INSTANT)) {
-    HandleYtdlpInstant(clipboardContent)
-    return true
-  }
-
-  if (
-    InStr(clipboardContent, TRIGGER_YTDLP_FULL) OR
-    InStr(clipboardContent, TRIGGER_GALLERYDL)
-  ) {
-    HandleDownload(clipboardContent)
     return true
   }
 

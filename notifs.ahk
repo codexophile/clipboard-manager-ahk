@@ -68,6 +68,7 @@ DisplayNotificationGui(Type) {
       AddButton(NotificationGui, 'Google', 'google')
       AddButton(NotificationGui, 'Save as ...', 'save-as')
       AddButton(NotificationGui, '', 'everything', EverythingPath)
+      AddButton(NotificationGui, '', 'pwsh', 'PowerShell.ico')
 
       ; url
       if (RegExMatch(SavedClipboard, "^https?:\/\/")) {

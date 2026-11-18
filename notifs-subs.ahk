@@ -1,7 +1,5 @@
 ﻿#Requires AutoHotkey v2.0
 
-OpIdRegex := '.+\\(\S+) ?-.+\((\S+)\)'
-
 ButtonClicked(Control, null) {
 
   global savedClipboard, SavedClipboardQuoted
@@ -36,9 +34,9 @@ ButtonClicked(Control, null) {
 
       Includes := '
       (     
-        // @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla.js
-        // @require      file://c:\mega\IDEs\javascript-userscripts-public\[fun] vanilla - presets.js
-        // @require      file://c:\mega\IDEs\javascript-userscripts-{visibility}\{ScriptName}.user.js
+        // @require      file://c:\Mega\IDEs\javascript-userscripts\public\[fun] vanilla.js
+        // @require      file://c:\Mega\IDEs\javascript-userscripts\public\[fun] vanilla - presets.js
+        // @require      file://c:\mega\IDEs\javascript-userscripts\{visibility}\{ScriptName}.user.js
       )'
 
       ; Apply replacements on NewTemplate (not OriginalTemplate) so earlier @noframes insertion persists
@@ -63,11 +61,11 @@ ButtonClicked(Control, null) {
       A_Clipboard := NewTemplate
       Send '^v'
 
-      JsFullPath := 'c:\mega\IDEs\javascript-userscripts-' Visibility '\' ScriptName '.user.js'
+      JsFullPath := 'c:\mega\IDEs\javascript-userscripts\' Visibility '\' ScriptName '.user.js'
       if !FileExist(JsFullPath) {
         if (MsgBox('Create file?', , 'YesNo Icon?') = 'Yes') {
           JsFileContent :=
-            "( function () {`n'use strict'`nif ( window.top != window.self) return; //don't run on frames or iframes`n`n`n`n} )()"
+            "'use strict'`n"
           FileAppend(JsFileContent, JsFullPath)
         } else return
       }
@@ -106,22 +104,11 @@ ButtonClicked(Control, null) {
       GoogleIflSiteSearch('yifysubtitles.ch', ShowMovieName)
 
     case 'op':
-      RegExMatch(SavedClipboard, OpIdRegex, &OpInfo)
-      OpUsername := OpInfo.1
-      Extractor := OpInfo.2
-      FindOp(OpUsername, Extractor)
-
     case 'source':
-      RegExMatch(savedClipboard, '\(([^)]+)\)([^ .\s]+)', &VideoInfo)
-      Extractor := VideoInfo.1
-      VideoId := VideoInfo.2
-      FindSource(VideoId, Extractor)
-
     case 'search-op':
-      RegExMatch(SavedClipboard, OpIdRegex, &OpInfo)
-      OpId := OpInfo.1
-      Run "Es:" OpId
-
+      ; RegExMatch(SavedClipboard, OpIdRegex, &OpInfo)
+      ; OpId := OpInfo.1
+      ; Run "Es:" OpId
     case 'speak':
       savedClipboard := StrReplace(savedClipboard, "”", "`"")
       savedClipboard := StrReplace(savedClipboard, "“", "`"")
@@ -152,25 +139,28 @@ ButtonClicked(Control, null) {
     case 'everything':
       Run '"C:\Mega\program-files\Everything\Everything64.exe" -s ' SavedClipboardQuoted
 
+    case 'pwsh':
+      Run 'pwsh -noexit -command ' SavedClipboardQuoted
+
       ;  MARK: Web url
 
     case 'open-in-browser':
-      Run VivaldiPath ' ' SavedClipboardQuoted
+      OpenUrlInBrowser(SavedClipboardQuoted)
 
     case 'yt-dlp-list':
-      Ytdlp(SavedClipboardQuoted, "list")
+      InvokeYtdlp(SavedClipboardQuoted, '', "list")
 
     case 'yt-dlp-download':
-      Ytdlp(SavedClipboardQuoted, "max")
+      InvokeYtdlp(SavedClipboardQuoted, '', "max")
 
     case 'yt-dlp-quick':
-      Ytdlp(SavedClipboardQuoted, "quick")
+      InvokeYtdlp(SavedClipboardQuoted, '', "quick")
 
     case 'yt-dlp-check':
-      Ytdlp(SavedClipboardQuoted, "check")
+      InvokeYtdlp(SavedClipboardQuoted, '', "check")
 
     case 'mpv':
-      Run '"C:\Users\xq151\AppData\Local\UniGetUI\Chocolatey\lib\mpvio.install\tools\mpv.exe" ' . SavedClipboardQuoted .
+      Run '"C:\Program Files\MPV Player\mpv.exe" ' . SavedClipboardQuoted .
       ' --load-auto-profiles=no'
 
       ;  MARK:  File path
@@ -226,49 +216,6 @@ ButtonClicked(Control, null) {
       RunDirElectron('c:\mega\IDEs\Electron\file-tagger', ["--files-list", SavedClipboardQuoted])
     default:
   }
-}
-
-FindSource(VideoId, Extractor) {
-  Url := ''
-  switch Extractor, 'Off' {
-    case 'pornhub':
-      Url := 'https://www.pornhub.com/view_video.php?viewkey=' VideoId
-    case 'youtube':
-      Url := 'https://www.youtube.com/watch?v=' VideoId
-    case 'xhamster':
-      Url := 'https://xhamster.com/videos/' VideoId
-    case 'instagram':
-      Url := 'https://www.instagram.com/p/' VideoId
-    case 'facebook':
-      Url := 'https://www.facebook.com/permalink.php?' VideoId
-  }
-  if (Url)
-    RunInPrivateProfile(Url)
-
-}
-
-FindOp(OpUsername, Extractor) {
-  Url := ''
-  switch Extractor, 'off' {
-    case 'facebook':
-      Url := 'https://www.facebook.com/' OpUsername
-    case 'instagram':
-      Url := 'https://www.instagram.com/' OpUsername
-    case 'pornhub':
-      OpUsername := StrReplace(OpUsername, '?', '/')
-      Url := 'https://www.pornhub.com' OpUsername '/videos'
-    case 'twitter':
-      Url := 'https://twitter.com/' OpUsername
-    case 'youtube':
-      Url := 'https://www.youtube.com/' OpUsername '/videos/'
-    case 'xhamster':
-      Url := 'https://xhamster.com/creators/' OpUsername '/exclusive'
-    case 'tiktok':
-      Url := 'https://www.tiktok.com/@' OpUsername
-    default:
-  }
-  if (Url)
-    RunInPrivateProfile(Url)
 }
 
 GetMediaFullName() {
