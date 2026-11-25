@@ -140,7 +140,7 @@ ButtonClicked(Control, null) {
       Run '"C:\Mega\program-files\Everything\Everything64.exe" -s ' SavedClipboardQuoted
 
     case 'pwsh':
-      Run 'pwsh -noexit -command ' SavedClipboardQuoted
+      Run 'pwsh -noexit -noProfile -command ' SavedClipboardQuoted
 
       ;  MARK: Web url
 
@@ -196,18 +196,19 @@ ButtonClicked(Control, null) {
       Run Trim(savedClipboard, ' `n`r')
 
       ;  MARK: - Video files
+      case 'concat':
     case 'Convert':
       MediaFullName := GetMediaFullName()
       parameters := '"' MediaFullName '"' " -ACodec -VCodec"
-      Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
+      Run "pwsh -noExit -noProfile c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
     case '720p':
       MediaFullName := GetMediaFullName()
       parameters := '"' MediaFullName '"' " -720p"
-      Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
+      Run "pwsh -noExit -noProfile c:\mega\IDEs\powershell\ffmpeg\ffmpeg-convert.ps1 " parameters
     case 'Decimate':
-      Run "pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-decimate.ps1 " SavedClipboardQuoted
+      Run "pwsh -noExit -noProfile c:\mega\IDEs\powershell\ffmpeg\ffmpeg-decimate.ps1 " SavedClipboardQuoted
     case 'Stabilize':
-      Run 'pwsh -noExit c:\mega\IDEs\powershell\ffmpeg\ffmpeg-stabilize.ps1 ' SavedClipboardQuoted
+      Run 'pwsh -noExit -noProfile c:\mega\IDEs\powershell\ffmpeg\ffmpeg-stabilize.ps1 ' SavedClipboardQuoted
     case 'Avidemux':
       AvidemuxPath := 'C:\Program Files\Avidemux\avidemux.exe'
       VideoFilePath := RegExReplace(SavedClipboardQuoted, '\r|\n', '')
